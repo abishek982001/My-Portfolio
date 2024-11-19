@@ -33,6 +33,24 @@ with st.container():
     )
     st.write("[Learn More on GitHub >](https://github.com/abishek982001)")
 
+# ---- WHAT I DO ----
+with st.container():
+    st.write("---")
+    left_column, right_column = st.columns(2)
+    with left_column:
+        st.header("What I do")
+        st.write(
+        """
+           I am a passionate and dedicated tech professional, currently working as an SAP BODS Developer at Ford, where I focus on optimizing data integration and ETL processes.\n
+           Previously, as a Software Developer, I specialized in upgrading Spring Boot 2.x to 3.x, writing robust test cases, and ensuring top-notch code quality using tools like Checkmarx, FOSSA, and SonarQube. This experience honed my skills in software development, code standardization, and process improvement.\n
+           In my current role, I leverage this foundation to streamline data workflows, automate processes, and drive business outcomes. My journey reflects a commitment to continuous learning, innovation, and making meaningful contributions to projects.\n
+           Let's connect to collaborate, share ideas, and explore new opportunities in the tech landscape!
+        """
+        )
+
+    with right_column:
+        st_lottie(lottie_coding, height=300, key="coding")
+
 # ---- PROJECTS SECTION ----
 with st.container():
     st.header("My Projects")
