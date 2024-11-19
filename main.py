@@ -1,106 +1,104 @@
 import requests
 import streamlit as st
 from streamlit_lottie import st_lottie
-from PIL import Image
 
+# Set page configuration
+st.set_page_config(page_title="Portfolio", page_icon=":briefcase:", layout="wide")
 
-# Find more emojis here: https://www.webfx.com/tools/emoji-cheat-sheet/
-st.set_page_config(page_title="My Webpage", page_icon=":tada:", layout="wide")
-
-
+# Function to load Lottie animations
 def load_lottieurl(url):
     r = requests.get(url)
     if r.status_code != 200:
         return None
     return r.json()
 
-
-# Use local CSS
+# Load CSS for styling (if any)
 def local_css(file_name):
     with open(file_name) as f:
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
-
+# Optional CSS file for custom styles
+# Uncomment the next line if you have a "style.css" file
 local_css("style/style.css")
 
-# ---- LOAD ASSETS ----
-lottie_coding = load_lottieurl(
-    "https://assets8.lottiefiles.com/private_files/lf30_m075yjya.json")
-#img_contact_form = Image.open("images/yt_contact_form.png")
-# img_lottie_animation = Image.open("images/yt_lottie_animation.png")
+# Load assets
+lottie_coding = load_lottieurl("https://assets8.lottiefiles.com/private_files/lf30_m075yjya.json")
 
 # ---- HEADER SECTION ----
 with st.container():
     st.subheader("Hi, I am Abishek R :wave:")
-    st.title("A ML/DL enthusiast from India")
+    st.title("A Machine Learning Enthusiast")
     st.write(
-        "I am passionate about finding ways to use Machine Learning and Deep Learning to solve Real World problems."
+        "Welcome to my portfolio! Here, you'll find details about my projects, skills, and contact information."
     )
-    st.write("[Learn More >](https://github.com/abishek982001)")
+    st.write("[Learn More on GitHub >](https://github.com/abishek982001)")
 
-# ---- WHAT I DO ----
+# ---- PROJECTS SECTION ----
 with st.container():
-    st.write("---")
-    left_column, right_column = st.columns(2)
-    with left_column:
-        st.header("What I do")
-        st.write("##")
-        st.write(
-            """
-            I am a fourth year CSE student major at Vellore institute of technology (VIT).
-            During my coursework I have developed a passion about Computer Science
-            Engineering as I love to solve complex problems and also a beginner in French
-            language. I love to work with teams and I am a strong team player. Bringing forth
-            a positive attitude, willingness and motivation to learn new technological
-            frameworks.
-            """
-        )
+    st.header("My Projects")
+    # Updated project list with Streamlit-friendly emojis
+    project_list = [
+        {
+            "title": "Smart Attendance System",
+            "description": "Face Recognition project with a time-stamp intended for attendance purposes.",
+            "tools": "Python, OpenCV, Numpy, OS",
+            "github_link": "https://github.com/abishek982001/Face-Recognition",
+            "emoji": ":bust_in_silhouette:",  # Face-related emoji
+        },
+        {
+            "title": "Real-Time Object Measurement Tool",
+            "description": "Python project to measure the perimeter of objects fitting within a given frame.",
+            "tools": "Python, OpenCV, Numpy, OS",
+            "github_link": "https://github.com/abishek982001/Real-Time-Object-Measurement",
+            "emoji": ":straight_ruler:",  # Measurement-related emoji
+        },
+        {
+            "title": "Image-to-Text Speech Converter",
+            "description": "Detect texts from images by letters or words and convert them to speech.",
+            "tools": "Python, OpenCV, IO, Tesseract, Pygame",
+            "github_link": "https://github.com/abishek982001/Image-Text-Detector",
+            "emoji": ":page_facing_up:",  # Text-related emoji
+        },
+        {
+            "title": "Predictive Analysis with Linear Regression",
+            "description": "Predict sales, housing prices, and per capita income using Kaggle datasets.",
+            "tools": "Python, Numpy, sklearn",
+            "github_link": "https://github.com/abishek982001/Banglore-House-Price-Prediction",
+            "emoji": ":bar_chart:",  # Prediction/data-related emoji
+        },
+    ]
 
-    with right_column:
-        st_lottie(lottie_coding, height=300, key="coding")
+     # Display projects in a 2-column layout
+    for i in range(0, len(project_list), 2):
+        cols = st.columns(2)  # Create two columns for each row
+        
+        # First project in the row
+        with cols[0]:
+            project = project_list[i]
+            st.subheader(f"{project['emoji']} {project['title']}")
+            st.write(project["description"])
+            st.write(f"**Technologies Used:** {project['tools']}")
+            st.write(f"[GitHub Link]({project['github_link']})")
+        
+        # Second project in the row, if it exists
+        if i + 1 < len(project_list):
+            with cols[1]:
+                project = project_list[i + 1]
+                st.subheader(f"{project['emoji']} {project['title']}")
+                st.write(project["description"])
+                st.write(f"**Technologies Used:** {project['tools']}")
+                st.write(f"[GitHub Link]({project['github_link']})")
 
-# # ---- PROJECTS ----
-# with st.container():
-#     st.write("---")
-#     st.header("My Projects")
-#     st.write("##")
-#     image_column, text_column = st.columns((1, 2))
-#     with image_column:
-#         st.image(img_lottie_animation)
-#     with text_column:
-#         st.subheader("Integrate Lottie Animations Inside Your Streamlit App")
-#         st.write(
-#             """
-#             Learn how to use Lottie Files in Streamlit!
-#             Animations make our web app more engaging and fun, and Lottie Files are the easiest way to do it!
-#             In this tutorial, I'll show you exactly how to do it
-#             """
-#         )
-#         st.markdown("[Watch Video...](https://youtu.be/TXSOitGoINE)")
 
-# with st.container():
-#     image_column, text_column = st.columns((1, 2))
-#     with image_column:
-#         st.image(img_contact_form)
-#     with text_column:
-#         st.subheader("How To Add A Contact Form To Your Streamlit App")
-#         st.write(
-#             """
-#             Want to add a contact form to your Streamlit website?
-#             In this video, I'm going to show you how to implement a contact form in your Streamlit app using the free service ‘Form Submit’.
-#             """
-#         )
-#         st.markdown("[Watch Video...](https://youtu.be/FOULV9Xij_8)")
 
 # ---- CONTACT ----
 with st.container():
     st.write("---")
     st.header("Get In Touch With Me!")
-    st.write("##")
 
     # Documention: https://formsubmit.co/ !!! CHANGE EMAIL ADDRESS !!!
     contact_form = """
-    <form action="https://formsubmit.co/abishekr521@gmail.com" method="POST">
+    <form action="https://formsubmit.co/abishek982001@gmail.com" method="POST">
         <input type="hidden" name="_captcha" value="false">
         <input type="text" name="name" placeholder="Your name" required>
         <input type="email" name="email" placeholder="Your email" required>
